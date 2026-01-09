@@ -51,4 +51,16 @@
 	select   b.book_id,b.book_name, sum(s.sales_amount) as totalsales from book_details b  inner join sales s on b.book_id=s.book_id group by b.book_id,b.book_name
 
 
-	select b.book_name,s.sales_date, year(s.sales_date) as sales_year,sum(s.sales_amount) from book_details b inner join sales s  on b.Book_id =s.book_id group by  b.book_name,b.book_id
+SELECT 
+    b.book_name,
+    YEAR(s.sales_date) AS sales_year,
+    SUM(s.sales_amount) AS total_sales
+FROM book_details b
+INNER JOIN sales s  
+    ON b.Book_id = s.book_id
+GROUP BY  
+    b.book_name,
+    YEAR(s.sales_date);
+
+
+	select b.book_name, sum(s.sales_amount) as total_sales from book_details b inner join sales s on b.Book_id=s.book_id group by b.book_name having  sum(s.sales_amount)>200;
