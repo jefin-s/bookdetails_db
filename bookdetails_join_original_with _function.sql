@@ -195,3 +195,33 @@ GROUP BY
 	  end;
 
 	  exec updatebookPrice 1,4085;
+
+
+	  create procedure  getBookTitle
+	  as
+	  begin
+	  select book_name from book_details
+	  end
+	  exec getBookTitle
+	  go
+	  create procedure getWithauthorid
+	  @author_id int
+	  as
+	  begin
+	  select book_name from book_details where author_id = @author_id
+	  end
+	  go
+
+	  exec getWithauthorid 1
+
+
+	  create function getnoofbooksbyauthor(@authornmae varchar(50))
+	  returns int
+	  as 
+	  begin 
+	  declare  @total int
+	  select @total=count(book_id) from book_details  b inner join author_details  a on b.author_id=a.Author_id where a.Author_name=@authornmae
+	  return @total;
+	  end
+
+	  select dbo.ge tnoofbooksbyauthor('Minku')
